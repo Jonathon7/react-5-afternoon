@@ -1,28 +1,51 @@
-import React,  { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
-class WizardSix extends Component {
+import { connect } from "react-redux";
+import { updateCredit } from "../../ducks/reducer";
 
-    render(){
-        return(
-            <div className="parent-div">
-                    <div className="vert-align">                    <p>What is the estimated purchase price?</p> <br />
-                        
-                        
-                        <input type="text" placeholder="amount" onChange={this.props.updateCost}/> <br />
+class WizardSeven extends Component {
+  render() {
+    const { updateCredit } = this.props;
 
+    return (
+      <div className="parent-div">
+        <div className="vert-align">
+          <p>Estimate your credit score</p> <br />
+          <div className="row">
+            <Link to="/wEight">
+              <button onClick={() => updateCredit("Excellent")}>
+                Excellent
+              </button>
+            </Link>
 
-                    <p>How much are you putting down as a down payment?</p> <br />
-                        
-                        
-                        <input type="text" placeholder="amount" onChange={this.props.updateDownPayment}/>                    
-                        
-                    
-                    <Link to="/wSeven"><button className="margin-btn"> Next </button></Link>
-                </div>
-            </div>
-        )
-    }
+            <Link to="/wEight">
+              <button onClick={() => updateCredit("Good")}>Good</button>
+            </Link>
+
+            <Link to="/wEight">
+              <button onClick={() => updateCredit("Fair")}>Fair</button>
+            </Link>
+
+            <Link to="/wEight">
+              <button onClick={() => updateCredit("Poor")}>Poor</button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
-export default WizardSix;
+function mapStateToProps(state) {
+  const { credit } = state;
+
+  return {
+    credit
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  { updateCredit }
+)(WizardSeven);
